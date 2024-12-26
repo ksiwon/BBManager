@@ -25,7 +25,7 @@ for div in divs:
         inning_data[inning_number].append(inning_content)
 
 with open("inning_data.json", "w", encoding="utf-8") as file:
-    json.dump(inning_data, file, indent=4)
+    json.dump(inning_data, file, ensure_ascii=False, indent=4)
 
 driver.quit()
 
