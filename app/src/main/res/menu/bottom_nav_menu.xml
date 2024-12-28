@@ -1,14 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/contact_white"
+        android:icon="@drawable/ic_contact"
         android:title="@string/title_contact" />
     <item
         android:id="@+id/navigation_gallery"
-        android:icon="@drawable/gallery_white"
+        android:icon="@drawable/ic_gallery"
         android:title="@string/title_gallery" />
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/broadcast_white"
+        android:icon="@drawable/ic_broadcast"
         android:title="@string/title_broadcast" />
 </menu>
