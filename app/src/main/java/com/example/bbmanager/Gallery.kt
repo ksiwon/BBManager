@@ -11,7 +11,7 @@ class Gallery : AppCompatActivity() {
         setContentView(R.layout.activity_gallery)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, GalleryFragment.newInstance())
+                .replace(R.id.container, GalleryFragment()) // newInstance 대신 직접 생성
                 .commitNow()
         }
     }

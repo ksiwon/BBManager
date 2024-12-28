@@ -9,9 +9,10 @@ class GalleryViewModel : ViewModel() {
     // 이미지 리스트 (샘플 데이터)
     private val _images = MutableLiveData<List<String>>().apply {
         value = listOf(
-            "busan1.jpg",
-            "busan2.jpg",
-            "busan3.jpg"
+            "busan_1",
+            "busan_2",
+            "busan_3",
+            "busan_4",
         )
     }
     val images: LiveData<List<String>> = _images
