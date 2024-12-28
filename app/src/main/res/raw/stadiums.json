@@ -1,0 +1,40 @@
+{
+  "stadiums": [
+    {
+      "name": "부산 사직야구장",
+      "images": ["busan_1", "busan_2", "busan_3", "busan_4"]
+    },
+    {
+      "name": "잠실 종합운동장",
+      "images": ["jamsil_1", "jamsil_2", "jamsil_3", "jamsil_4"]
+    },
+    {
+      "name": "광주 챔피언스필드",
+      "images": ["gwangju_1", "gwangju_2", "gwangju_3", "gwangju_4"]
+    },
+    {
+      "name": "대구 라이온즈파크",
+      "images": ["daegu_1", "daegu_2", "daegu_3", "daegu_4"]
+    },
+    {
+      "name": "대전 이글스파크",
+      "images": ["daejeon_1", "daejeon_2", "daejeon_3", "daejeon_4"]
+    },
+    {
+      "name": "인천 문학야구장",
+      "images": ["incheon_1", "incheon_2", "incheon_3", "incheon_4"]
+    },
+    {
+      "name": "창원 NC파크",
+      "images": ["changwon_1", "changwon_2", "changwon_3", "changwon_4"]
+    },
+    {
+      "name": "고척 스카이돔",
+      "images": ["gocheok_1", "gocheok_2", "gocheok_3", "gocheok_4"]
+    },
+    {
+      "name": "수원 위즈파크",
+      "images": ["suwon_1", "suwon_2", "suwon_3", "suwon_4"]
+    }
+  ]
+}
