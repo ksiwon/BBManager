@@ -1,0 +1,35 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+import time
+import json
+
+
+driver = webdriver.Chrome()
+driver.get('https://blog.naver.com/eun9179/220804364857')
+
+word_data = {}
+driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+time.sleep(1)
+
+#divs = driver.find_elements(By.CSS_SELECTOR, 'div.se_textView')
+divs = driver.find_elements(By.CSS_SELECTOR, 'p.se_textarea')
+
+print(divs)
+
+for div in divs:
+    print('1')
+    html_content = div.get_attribute('innerHTML')
+    for line in lines:
+        print('2')
+        print(line.strip())
+        word_data.append(line.strip())
+
+"""
+with open("word_data.json", "w", encoding="utf-8") as file:
+    json.dump(word_data, file, ensure_ascii=False, indent=4)
+
+driver.quit()
+
+print(word_data)"""

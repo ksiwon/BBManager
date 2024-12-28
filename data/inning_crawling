@@ -1,0 +1,29 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import json
+import time
+
+driver = webdriver.Chrome()
+driver.get('https://m.sports.naver.com/game/20240615LTLG02024/relay')
+
+inning_data = {}
+
+divs = driver.find_elements(By.CSS_SELECTOR, 'button.SetTab_button_tab___H3-s')
+for div in divs:    
+    inning_number = div.text.strip()
+    inning_data[inning_number] = []
+    div.click()
+    time.sleep(1)
+    
+    spans = driver.find_elements(By.CSS_SELECTOR, 'div span.RelayList_text__tFNjV')
+    for span in spans:
+        inning_content = span.text.strip()
+        inning_data[inning_number].append(inning_content)
+        
+            
+with open("inning_data.json", "w", encoding="utf-8") as file:
+    json.dump(inning_data, file, ensure_ascii=False, indent=4)
+
+driver.quit()
+
+print(inning_data)

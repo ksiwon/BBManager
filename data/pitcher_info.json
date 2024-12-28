@@ -1,0 +1,47 @@
+{
+    "김진성" : {
+        "year": 2024,
+        "team": "LG",
+        "age": 38,
+        "position": "P",
+        "games": {
+            "total": 71,
+            "started": 0,
+            "relief": 71,
+            "finished": 6,
+            "complete": 0,
+            "shutout": 0
+        },
+        "performance": {
+            "wins": 3,
+            "losses": 3,
+            "saves": 1,
+            "holds": 27,
+            "innings_pitched": 70.1,
+            "earned_runs": 31,
+            "runs_allowed": 34,
+            "run_average": 38.35,
+            "batters_faced": 294,
+            "hits_allowed": 62,
+            "doubles_allowed": 11,
+            "triples_allowed": 1,
+            "home_runs_allowed": 11,
+            "walks_allowed": 23,
+            "hit_by_pitch": 7,
+            "intentional_walks": 3,
+            "strikeouts": 61,
+            "reached_on_error": 4,
+            "balks": 0,
+            "wild_pitches": 2
+        },
+        "metrics": {
+            "ERA": 3.97,
+            "RA9": 4.35,
+            "rRA9": 4.91,
+            "rRA9pf": 5.13,
+            "FIP": 5.17,
+            "WHIP": 1.21,
+            "WAR": 1.23
+        }
+    }
+}
