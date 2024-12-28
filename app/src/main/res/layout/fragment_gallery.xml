@@ -9,11 +9,11 @@
     <include
         layout="@layout/header" />
 
-    <!-- Notification Content -->
+    <!-- Gallery Content -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!-- Notification-specific content goes here -->
+        <!-- Gallery-specific content goes here -->
     </FrameLayout>
 
 </LinearLayout>

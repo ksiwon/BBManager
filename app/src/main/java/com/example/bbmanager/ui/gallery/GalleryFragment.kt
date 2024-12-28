@@ -1,4 +1,4 @@
-package com.example.bbmanager.ui.home
+package com.example.bbmanager.ui.gallery
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,13 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.bbmanager.R
 
-class HomeFragment : Fragment() {
+class GalleryFragment : Fragment() {
+
+    companion object {
+        // newInstance 메서드 추가
+        fun newInstance(): GalleryFragment {
+            return GalleryFragment()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // fragment_home.xml이 res/layout에 있어야 합니다.
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_gallery, container, false)
     }
 }
