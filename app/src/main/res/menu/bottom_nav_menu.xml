@@ -8,7 +8,7 @@
         android:icon="@drawable/ic_gallery"
         android:title="@string/title_gallery" />
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_broadcast"
         android:icon="@drawable/ic_broadcast"
         android:title="@string/title_broadcast" />
 </menu>
