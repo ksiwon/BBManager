@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/gallery_image"
-        android:layout_width="160dp"
-        android:layout_height="120dp"
+        android:layout_width="192dp"
+        android:layout_height="108dp"
         android:scaleType="centerCrop"
         android:layout_margin="8dp"
         app:layout_constraintTop_toTopOf="parent"
