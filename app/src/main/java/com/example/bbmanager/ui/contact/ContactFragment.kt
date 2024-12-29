@@ -50,8 +50,8 @@ class ContactFragment : Fragment() {
                 // 그룹 이름 추가
                 val groupTitle = TextView(requireContext()).apply {
                     text = group.groupName
-                    textSize = 20f
-                    setPadding(16, 16, 16, 8)
+                    textSize = 24f
+                    setPadding(16, 32, 16, 32)
                 }
                 containerLayout.addView(groupTitle)
 
@@ -114,14 +114,12 @@ class ContactFragment : Fragment() {
         // 이름 TextView
         val nameTextView = TextView(requireContext()).apply {
             text = contact.name
-            textSize = 16f
             setPadding(0, 0, 0, 8)
         }
 
         // 전화번호 TextView
         val phoneTextView = TextView(requireContext()).apply {
             text = contact.phone
-            textSize = 14f
         }
 
 
