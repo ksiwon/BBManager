@@ -13,7 +13,7 @@
         android:theme="@style/Theme.BBManager"
         tools:targetApi="31">
         <activity
-            android:name=".ui.Broadcast"
+            android:name=".Broadcast"
             android:exported="false" />
         <activity
             android:name=".Contact"

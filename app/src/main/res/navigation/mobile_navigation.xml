@@ -20,7 +20,6 @@
     <fragment
         android:id="@+id/navigation_broadcast"
         android:name="com.example.bbmanager.ui.broadcast.BroadcastFragment"
-        android:label="Broadcast"
+        android:label="@string/title_broadcast"
         tools:layout="@layout/fragment_broadcast" />
-
 </navigation>
