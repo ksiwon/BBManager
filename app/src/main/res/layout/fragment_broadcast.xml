@@ -20,7 +20,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- 팀과 점수 병렬 배치 -->
     <LinearLayout
         android:id="@+id/team_score"
         android:layout_width="0dp"
