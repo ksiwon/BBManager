@@ -122,10 +122,6 @@ class ContactFragment : Fragment() {
             text = contact.phone
         }
 
-
-
-
-
         // 뷰를 LinearLayout에 추가
         contactLayout.addView(nameTextView)
         contactLayout.addView(phoneTextView)
