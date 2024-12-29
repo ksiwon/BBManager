@@ -16,6 +16,9 @@
             android:name=".Broadcast"
             android:exported="false" />
         <activity
+            android:name=".Contact"
+            android:exported="false" />
+        <activity
             android:name=".Gallery"
             android:exported="false" />
         <activity
