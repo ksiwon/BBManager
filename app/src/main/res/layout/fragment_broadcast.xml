@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/LightGray"
-    android:padding="8dp">
+    android:padding="20dp">
 
     <!-- 이닝 -->
     <TextView
         android:id="@+id/inning"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="24dp"
+        android:layout_height="64dp"
         android:background="@color/White"
         android:gravity="center"
-        android:text="8"
+        android:text="8초"
         android:textColor="@color/Black"
         style="@style/T3"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- 팀 및 점수 -->
     <LinearLayout
         android:id="@+id/team_score"
-        android:layout_width="0dp"
-        android:layout_height="32dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toEndOf="@id/inning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/bs_info">
+        app:layout_constraintStart_toEndOf="@id/inning">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/Navy">
 
             <TextView
                 android:id="@+id/team_lotte"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="60dp"
+                android:layout_height="32dp"
                 android:gravity="center"
                 android:paddingHorizontal="8dp"
                 android:text="롯데"
@@ -48,7 +47,7 @@
 
             <TextView
                 android:id="@+id/score_lotte"
-                android:layout_width="32dp"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="6"
@@ -59,14 +58,14 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/Cherry">
 
             <TextView
                 android:id="@+id/team_lg"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="60dp"
+                android:layout_height="32dp"
                 android:gravity="center"
                 android:paddingHorizontal="8dp"
                 android:text="LG"
@@ -75,7 +74,7 @@
 
             <TextView
                 android:id="@+id/score_lg"
-                android:layout_width="32dp"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="7"
@@ -85,82 +84,23 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- BSO 병렬 배치 -->
-    <LinearLayout
-        android:id="@+id/bs_info"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:orientation="horizontal"
+    <!-- BSO 상태 이미지 -->
+    <ImageView
+        android:id="@+id/bso_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintStart_toEndOf="@id/team_score"
+        app:layout_constraintEnd_toStartOf="@id/base_image"
+        app:layout_constraintBottom_toBottomOf="@id/team_score" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
+    <!-- Base 상태 이미지 -->
+    <ImageView
+        android:id="@+id/base_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/team_score" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="B"
-                android:textStyle="bold"
-                android:textColor="@color/Black"
-                style="@style/T3" />
-
-            <View
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="@color/Green"
-                android:layout_marginStart="4dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginStart="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="S"
-                android:textStyle="bold"
-                android:textColor="@color/Black"
-                style="@style/T3" />
-
-            <View
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="@color/Yellow"
-                android:layout_marginStart="4dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginStart="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="O"
-                android:textStyle="bold"
-                android:textColor="@color/Black"
-                style="@style/T3" />
-
-            <View
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="@color/Red"
-                android:layout_marginStart="4dp" />
-        </LinearLayout>
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
-
