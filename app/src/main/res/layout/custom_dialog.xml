@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/chat_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="야구가 궁금한 NEW비 환⭐️영⚾️"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp"
+        android:gravity="start"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Message -->
+    <TextView
+        android:id="@+id/chat_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="무엇이든 물어BB⚾️M"
+        android:textSize="16sp"
+        android:paddingBottom="16dp"
+        android:gravity="start"
+        app:layout_constraintTop_toBottomOf="@id/chat_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_messages"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@id/chat_message"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/message_input_layout" />
+
+
+    <!-- 메시지 입력 영역 -->
+    <LinearLayout
+        android:id="@+id/message_input_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@id/close_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 메시지 입력 -->
+        <EditText
+            android:id="@+id/edit_text_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="메시지를 입력하세요"
+            android:padding="8dp"
+            android:textSize="14sp" />
+
+        <!-- 전송 버튼 -->
+        <Button
+            android:id="@+id/button_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전송"
+            android:paddingHorizontal="16dp" />
+    </LinearLayout>
+
+
+    <!-- Close Button -->
+    <Button
+        android:id="@+id/close_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="닫기"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

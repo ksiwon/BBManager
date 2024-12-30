@@ -25,12 +25,11 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        // Set up the Floating Action Button
-        val fabAdd = findViewById<FloatingActionButton>(R.id.fab_add)
-        fabAdd.setOnClickListener {
-            Toast.makeText(this, "FAB clicked!", Toast.LENGTH_SHORT).show()
-            // Add your desired action here, such as navigating to a new fragment
-        }
+        val fabChat = binding.fabChat
+        // FAB 초기화
+        if (fabChat != null) {
+            fabChat.hide()
+        } // 기본적으로 숨김
 
 
         val navView: BottomNavigationView = binding.navView
@@ -48,7 +47,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_contact, R.id.navigation_gallery, R.id.navigation_broadcast
             )
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        Log.d("MainActivity", "넘어갔는데 왜 꺼지누")
+
+        //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        binding.navView.setupWithNavController(navController)
+
+
+
     }
 }
