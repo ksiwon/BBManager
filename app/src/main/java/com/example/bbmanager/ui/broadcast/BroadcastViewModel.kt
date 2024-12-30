@@ -67,26 +67,55 @@ class BroadcastViewModel : ViewModel() {
     }
     val batterVsPitcherInfo: LiveData<BatterVsPitcher> = _batterVsPitcherInfo
 
-    fun loadBatterVsPitcherData(context: Context, batterName: String) {
-        try {
-            val jsonString = context.assets.open("player_info.json").bufferedReader().use { it.readText() }
-            val jsonObject = JSONObject(jsonString)
-            val batterData = jsonObject.getJSONObject(batterName)
+    fun updateScoreboard(scoreboard: String) {
+        _scoreboardData.postValue(scoreboard)
+    }
 
-            val batterVsPitcher = BatterVsPitcher(
-                batterName = batterName,
-                pitcherName = "김진성",
-                ab = batterData.getInt("AB"),
-                h = batterData.getInt("H"),
-                hr = batterData.getInt("HR"),
-                rbi = batterData.getInt("RBI"),
-                bb = batterData.getInt("BB"),
-                so = batterData.getInt("SO"),
-                avg = batterData.getDouble("AVG"),
-                ops = batterData.getDouble("OPS")
+    fun updateBsoState(bso: Triple<Int, Int, Int>) {
+        _bsoState.postValue(bso)
+    }
+
+    fun updateBaseState(baseState: Triple<String, String, String>) {
+        _baseState.postValue(baseState)
+    }
+
+    fun updateBatterInfo(context: Context, batterName: String) {
+        try {
+            // player_info.json 로드
+            val playerInfoJson = context.assets.open("player_info.json").bufferedReader().use { it.readText() }
+            val playerInfoObject = JSONObject(playerInfoJson).getJSONObject(batterName)
+
+            // player_history.json 로드
+            val playerHistoryJson = context.assets.open("player_history.json").bufferedReader().use { it.readText() }
+            val playerHistoryObject = JSONObject(playerHistoryJson).getJSONObject(batterName)
+
+            // ────────────── 수정된 부분: ratios 라는 JSONObject 안에서 가져오기 ──────────────
+            val ratiosObject = playerHistoryObject.getJSONObject("ratios")
+            val batterStats = Batter(
+                name = batterName,
+                avg = ratiosObject.getDouble("AVG"),     // ratios 내의 AVG
+                ops = ratiosObject.getDouble("OPS"),     // ratios 내의 OPS
+                wrc = ratiosObject.getDouble("wRC+"),    // ratios 내의 wRC+
+                war = playerHistoryObject.getDouble("WAR") // WAR은 루트에 존재
             )
 
-            _batterVsPitcherInfo.postValue(batterVsPitcher)
+            val batterVsPitcherStats = BatterVsPitcher(
+                batterName = batterName,
+                pitcherName = "김진성",
+                ab = playerInfoObject.getInt("AB"),
+                h = playerInfoObject.getInt("H"),
+                hr = playerInfoObject.getInt("HR"),
+                rbi = playerInfoObject.getInt("RBI"),
+                bb = playerInfoObject.getInt("BB"),
+                so = playerInfoObject.getInt("SO"),
+                avg = playerInfoObject.getDouble("AVG"),
+                ops = playerInfoObject.getDouble("OPS")
+            )
+
+            // LiveData 업데이트
+            _batterInfo.postValue(batterStats)
+            _batterVsPitcherInfo.postValue(batterVsPitcherStats)
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
