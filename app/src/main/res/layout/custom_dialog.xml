@@ -4,7 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
     android:padding="16dp">
+
+
 
     <!-- Title -->
     <TextView
@@ -52,7 +55,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@id/close_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -62,9 +65,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="메시지를 입력하세요"
+            android:hint="야구가 궁금해 ?!"
             android:padding="8dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
 
         <!-- 전송 버튼 -->
         <Button
@@ -74,16 +79,4 @@
             android:text="전송"
             android:paddingHorizontal="16dp" />
     </LinearLayout>
-
-
-    <!-- Close Button -->
-    <Button
-        android:id="@+id/close_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="닫기"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
