@@ -51,4 +51,16 @@ class BroadcastViewModel : ViewModel() {
     fun updateBaseState(base1: String, base2: String, base3: String) {
         _baseState.value = Triple(base1, base2, base3)
     }
+
+    // LiveData for FAB click events
+    private val _fabClickEvent = MutableLiveData<Boolean>().apply {
+        value = false // 초기화
+    }
+    val fabClickEvent: LiveData<Boolean> = _fabClickEvent
+
+    // Method to handle FAB click
+    fun onFabClicked() {
+        _fabClickEvent.value = true
+    }
+
 }

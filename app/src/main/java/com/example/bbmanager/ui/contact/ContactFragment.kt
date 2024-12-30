@@ -35,8 +35,7 @@ class ContactFragment : Fragment() {
         // 동적 UI를 추가할 컨테이너
         val containerLayout: LinearLayout = view.findViewById(R.id.containerLayout)
 
-//        val fabAdd = requireActivity().findViewById<FloatingActionButton>(R.id.fab_add)
-//        fabAdd.show()
+        val fabChat = requireActivity().findViewById<FloatingActionButton>(R.id.fab_chat)
 
         // res/raw/contacts.json에서 데이터를 로드
         viewModel.loadContacts(requireContext())
@@ -81,17 +80,21 @@ class ContactFragment : Fragment() {
 
 
 
-// Retrieve resourceId using the map
-       // Log.d("ContactFragment", "Contact object: $contact")
         Log.d("ContactFragment", "Contact img: ${contact.img}")
         //val resourceId = imageMapping[contact.img]
         //val resourceId = requireContext().resources.getIdentifier(contact.img, "drawable", requireContext().packageName)
 
         callImageView.setOnClickListener {
-            val intent = Intent(Intent.ACTION_DIAL).apply { //번호로 전화걺
-                data = Uri.parse("tel:&{contact.phone")
+            val phoneNumber = contact.phone.trim() // 공백 제거
+            val cleanedPhoneNumber = phoneNumber.replace(Regex("[^\\d]"), "")
+            if (cleanedPhoneNumber.matches(Regex("\\d+"))) { // 숫자로만 이루어진 문자열인지 확인
+                val intent = Intent(Intent.ACTION_DIAL).apply {
+                    data = Uri.parse("tel:$phoneNumber")
+                }
+                startActivity(intent)
+            } else {
+                Toast.makeText(context, "유효하지 않은 전화번호입니다.", Toast.LENGTH_SHORT).show()
             }
-            startActivity(intent)
         }
 
         // Set text data
