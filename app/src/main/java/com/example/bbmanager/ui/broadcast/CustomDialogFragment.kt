@@ -58,8 +58,6 @@ class CustomDialogFragment : BottomSheetDialogFragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
 
-
-
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, insets ->
             Log.d("KeyboardTest", "Insets received: ${insets.toString()}")
             val imeHeight = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
