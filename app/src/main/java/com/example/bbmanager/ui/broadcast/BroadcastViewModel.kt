@@ -22,12 +22,12 @@ class BroadcastViewModel : ViewModel() {
     val teamNames: LiveData<String> = _teamNames
 
     private val _bsoState = MutableLiveData<Triple<Int, Int, Int>>().apply {
-        value = Triple(0, 0, 0) // B, S, O 초기값
+        value = Triple(1, 2, 1) // B, S, O 초기값
     }
     val bsoState: LiveData<Triple<Int, Int, Int>> = _bsoState
 
     private val _baseState = MutableLiveData<Triple<String, String, String>>().apply {
-        value = Triple("x", "x", "x") // 1B, 2B, 3B 초기값
+        value = Triple("x", "x", "o") // 1B, 2B, 3B 초기값
     }
     val baseState: LiveData<Triple<String, String, String>> = _baseState
 
