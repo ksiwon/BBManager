@@ -7,7 +7,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 object ApiConfig {
-    const val API_KEY = "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"
+    const val API_KEY = "api_key"
 }
 
 interface GPTApiService {
