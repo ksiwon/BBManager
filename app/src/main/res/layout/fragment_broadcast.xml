@@ -23,7 +23,6 @@
         android:layout_height="72dp"
         android:background="@color/White"
         android:gravity="center"
-        android:text="8초"
         android:textColor="@color/Black"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
@@ -52,7 +51,6 @@
                 android:layout_height="36dp"
                 android:gravity="center"
                 android:paddingHorizontal="8dp"
-                android:text="롯데"
                 android:textColor="@color/White"
                 style="@style/T2" />
 
@@ -61,7 +59,6 @@
                 android:layout_width="36dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="6"
                 android:textColor="@color/White"
                 android:background="@color/Black"
                 style="@style/T2" />
@@ -79,7 +76,6 @@
                 android:layout_height="36dp"
                 android:gravity="center"
                 android:paddingHorizontal="8dp"
-                android:text="LG"
                 android:textColor="@color/White"
                 style="@style/T2" />
 
@@ -88,7 +84,6 @@
                 android:layout_width="36dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="7"
                 android:textColor="@color/White"
                 android:background="@color/Black"
                 style="@style/T2" />
