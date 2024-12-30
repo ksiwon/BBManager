@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
-    android:background="@color/LightGray" >
+    android:background="@color/LightGray">
 
     <!-- 위쪽 배경 -->
     <View
@@ -24,6 +23,7 @@
         android:layout_height="72dp"
         android:background="@color/White"
         android:gravity="center"
+        android:text="8초"
         android:textColor="@color/Black"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
@@ -52,6 +52,7 @@
                 android:layout_height="36dp"
                 android:gravity="center"
                 android:paddingHorizontal="8dp"
+                android:text="롯데"
                 android:textColor="@color/White"
                 style="@style/T2" />
 
@@ -60,6 +61,7 @@
                 android:layout_width="36dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:text="6"
                 android:textColor="@color/White"
                 android:background="@color/Black"
                 style="@style/T2" />
@@ -77,6 +79,7 @@
                 android:layout_height="36dp"
                 android:gravity="center"
                 android:paddingHorizontal="8dp"
+                android:text="LG"
                 android:textColor="@color/White"
                 style="@style/T2" />
 
@@ -85,6 +88,7 @@
                 android:layout_width="36dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:text="7"
                 android:textColor="@color/White"
                 android:background="@color/Black"
                 style="@style/T2" />
@@ -111,6 +115,503 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/team_score" />
 
+    <!-- 타자와 투수 Card를 감싸는 LinearLayout -->
+    <LinearLayout
+        android:id="@+id/player_cards_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/top_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 타자 Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/batter_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="8dp">
+
+                <!-- 타자 이름 -->
+                <TextView
+                    android:id="@+id/batter_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_background_navy"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:textColor="@color/White"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    style="@style/T3" />
+
+                <TableLayout
+                    android:id="@+id/batter_info_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="타율"
+                            android:background="@color/DarkGray"
+                            android:textColor="@color/White"
+                            android:paddingVertical="2dp"
+                            style="@style/T5" />
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="OPS"
+                            android:background="@color/DarkGray"
+                            android:textColor="@color/White"
+                            android:paddingVertical="2dp"
+                            style="@style/T5" />
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="wRC+"
+                            android:background="@color/DarkGray"
+                            android:textColor="@color/White"
+                            android:paddingVertical="2dp"
+                            style="@style/T5" />
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="WAR"
+                            android:background="@color/DarkGray"
+                            android:textColor="@color/White"
+                            android:paddingVertical="2dp"
+                            style="@style/T5" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/batter_avg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@color/White"
+                            android:textColor="@color/Black"
+                            android:paddingVertical="2dp"
+                            style="@style/T6" />
+
+                        <TextView
+                            android:id="@+id/batter_ops"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@color/White"
+                            android:textColor="@color/Black"
+                            android:paddingVertical="2dp"
+                            style="@style/T6" />
+
+                        <TextView
+                            android:id="@+id/batter_wrc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@color/White"
+                            android:textColor="@color/Black"
+                            android:paddingVertical="2dp"
+                            style="@style/T6" />
+
+                        <TextView
+                            android:id="@+id/batter_war"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@color/White"
+                            android:textColor="@color/Black"
+                            android:paddingVertical="2dp"
+                            style="@style/T6" />
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 투수 Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/pitcher_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="8dp">
+
+                <!-- 투수 이름 -->
+                <TextView
+                    android:id="@+id/pitcher_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_background_cherry"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:textColor="@color/White"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    style="@style/T3" />
+
+                <TableLayout
+                    android:id="@+id/pitcher_info_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+                    <TableRow>
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ERA"
+                            android:background="@color/DarkGray"
+                            android:textColor="@color/White"
+                            android:paddingVertical="2dp"
+                            style="@style/T5" />
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="K"
+                            android:background="@color/DarkGray"
+                            android:textColor="@color/White"
+                            android:paddingVertical="2dp"
+                            style="@style/T5" />
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="WHIP"
+                            android:background="@color/DarkGray"
+                            android:textColor="@color/White"
+                            android:paddingVertical="2dp"
+                            style="@style/T5" />
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="WAR"
+                            android:background="@color/DarkGray"
+                            android:textColor="@color/White"
+                            android:paddingVertical="2dp"
+                            style="@style/T5" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/pitcher_era"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@color/White"
+                            android:textColor="@color/Black"
+                            android:paddingVertical="2dp"
+                            style="@style/T6" />
+                        <TextView
+                            android:id="@+id/pitcher_k"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@color/White"
+                            android:textColor="@color/Black"
+                            android:paddingVertical="2dp"
+                            style="@style/T6" />
+                        <TextView
+                            android:id="@+id/pitcher_whip"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@color/White"
+                            android:textColor="@color/Black"
+                            android:paddingVertical="2dp"
+                            style="@style/T6" />
+                        <TextView
+                            android:id="@+id/pitcher_war"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@color/White"
+                            android:textColor="@color/Black"
+                            android:paddingVertical="2dp"
+                            style="@style/T6" />
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <!-- 맞대결 성적 Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/matchup_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:layout_marginHorizontal="19dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/player_cards_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 타자 vs 투수 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <!-- 타자 이름 -->
+                <TextView
+                    android:id="@+id/matchup_batter_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_background_navy"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:textColor="@color/White"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    style="@style/T3" />
+
+                <!-- VS -->
+                <TextView
+                    android:id="@+id/matchup_vs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:gravity="center"
+                    android:text="VS"
+                    android:textColor="@color/Black"
+                    style="@style/T3" />
+
+                <!-- 투수 이름 -->
+                <TextView
+                    android:id="@+id/matchup_pitcher_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_background_cherry"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:textColor="@color/White"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    style="@style/T3" />
+            </LinearLayout>
+
+            <!-- 맞대결 데이터 테이블 -->
+            <TableLayout
+                android:id="@+id/matchup_info_table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <!-- Header Row -->
+                <TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="타수"
+                        android:background="@color/DarkGray"
+                        android:textColor="@color/White"
+                        android:paddingVertical="2dp"
+                        style="@style/T5" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="안타"
+                        android:background="@color/DarkGray"
+                        android:textColor="@color/White"
+                        android:paddingVertical="2dp"
+                        style="@style/T5" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="홈런"
+                        android:background="@color/DarkGray"
+                        android:textColor="@color/White"
+                        android:paddingVertical="2dp"
+                        style="@style/T5" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="타점"
+                        android:background="@color/DarkGray"
+                        android:textColor="@color/White"
+                        android:paddingVertical="2dp"
+                        style="@style/T5" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="볼넷"
+                        android:background="@color/DarkGray"
+                        android:textColor="@color/White"
+                        android:paddingVertical="2dp"
+                        style="@style/T5" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="삼진"
+                        android:background="@color/DarkGray"
+                        android:textColor="@color/White"
+                        android:paddingVertical="2dp"
+                        style="@style/T5" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="타율"
+                        android:background="@color/DarkGray"
+                        android:textColor="@color/White"
+                        android:paddingVertical="2dp"
+                        style="@style/T5" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="OPS"
+                        android:background="@color/DarkGray"
+                        android:textColor="@color/White"
+                        android:paddingVertical="2dp"
+                        style="@style/T5" />
+                </TableRow>
+
+                <!-- Data Row -->
+                <TableRow>
+                    <TextView
+                        android:id="@+id/matchup_ab"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/Black"
+                        android:paddingVertical="2dp"
+                        style="@style/T6" />
+
+                    <TextView
+                        android:id="@+id/matchup_hits"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/Black"
+                        android:paddingVertical="2dp"
+                        style="@style/T6" />
+
+                    <TextView
+                        android:id="@+id/matchup_hrs"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/Black"
+                        android:paddingVertical="2dp"
+                        style="@style/T6" />
+
+                    <TextView
+                        android:id="@+id/matchup_rbis"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/Black"
+                        android:paddingVertical="2dp"
+                        style="@style/T6" />
+
+                    <TextView
+                        android:id="@+id/matchup_bbs"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/Black"
+                        android:paddingVertical="2dp"
+                        style="@style/T6" />
+
+                    <TextView
+                        android:id="@+id/matchup_sos"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/Black"
+                        android:paddingVertical="2dp"
+                        style="@style/T6" />
+
+                    <TextView
+                        android:id="@+id/matchup_avg"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/Black"
+                        android:paddingVertical="2dp"
+                        style="@style/T6" />
+
+                    <TextView
+                        android:id="@+id/matchup_ops"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/Black"
+                        android:paddingVertical="2dp"
+                        style="@style/T6" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
     <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_chat"
@@ -123,5 +624,4 @@
         app:tint="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
