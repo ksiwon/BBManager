@@ -1,5 +1,6 @@
 package com.example.bbmanager.ui.broadcast
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class BroadcastFragment : Fragment() {
 
     private val broadcastViewModel: BroadcastViewModel by viewModels()
+    private lateinit var mediaPlayer: MediaPlayer
+    private var isPlaying: Boolean = false
+    private var isMuted: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +59,9 @@ class BroadcastFragment : Fragment() {
         val matchupSosTextView: TextView = root.findViewById(R.id.matchup_sos)
         val matchupAvgTextView: TextView = root.findViewById(R.id.matchup_avg)
         val matchupOpsTextView: TextView = root.findViewById(R.id.matchup_ops)
+        val radioStationName: TextView = root.findViewById(R.id.radio_station_name)
+        val radioPlayPauseButton: ImageView = root.findViewById(R.id.radio_play_pause_button)
+        val radioVolumeIcon: ImageView = root.findViewById(R.id.radio_volume_icon)
 
         // Floating Action Button
         val fabChat: FloatingActionButton = root.findViewById(R.id.fab_chat)
@@ -132,11 +139,50 @@ class BroadcastFragment : Fragment() {
         // 초기 데이터 로드
         broadcastViewModel.loadBatterVsPitcherData(requireContext(), "정훈") // 타자 이름 설정
 
+        // MediaPlayer 초기화
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.radio)
+        mediaPlayer.isLooping = true // 라디오 음원을 반복 재생
+
+        // 플레이/일시정지 버튼 클릭 이벤트
+        radioPlayPauseButton.setOnClickListener {
+            if (isPlaying) {
+                mediaPlayer.pause()
+                radioPlayPauseButton.setImageResource(R.drawable.ic_play)
+            } else {
+                mediaPlayer.start()
+                radioPlayPauseButton.setImageResource(R.drawable.ic_pause)
+            }
+            isPlaying = !isPlaying
+        }
+
+        // 볼륨 버튼 클릭 이벤트
+        radioVolumeIcon.setOnClickListener {
+            if (isMuted) {
+                // 볼륨 복구
+                mediaPlayer.setVolume(1.0f, 1.0f) // 왼쪽 및 오른쪽 볼륨 설정
+                radioVolumeIcon.setImageResource(R.drawable.ic_volume)
+            } else {
+                // 볼륨 음소거
+                mediaPlayer.setVolume(0.0f, 0.0f)
+                radioVolumeIcon.setImageResource(R.drawable.ic_mute)
+            }
+            isMuted = !isMuted
+        }
+
+        // MediaPlayer 해제
+        mediaPlayer.setOnCompletionListener {
+            radioPlayPauseButton.setImageResource(R.drawable.ic_play)
+            isPlaying = false
+        }
+
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        if (this::mediaPlayer.isInitialized) {
+            mediaPlayer.release()
+        }
         val fabChat = requireActivity().findViewById<FloatingActionButton>(R.id.fab_chat)
         fabChat?.hide()
     }
