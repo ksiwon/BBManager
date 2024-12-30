@@ -6,9 +6,9 @@ import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
-object ApiConfig {
-    const val API_KEY = "api_key"
-}
+//object ApiConfig {
+//    const val API_KEY = "api_key"
+//}
 
 interface GPTApiService {
     @Headers(
