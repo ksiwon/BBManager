@@ -21,6 +21,8 @@
         android:background="@drawable/message_send_box"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
+
+
 </LinearLayout>
 
 
