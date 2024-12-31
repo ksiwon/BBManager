@@ -10,20 +10,51 @@
       }
     },
     {
-      "time": 5000,
+      "time": 27000,
       "updates": {
-        "score": { "team1": 7, "team2": 8 },
-        "bso": { "balls": 3, "strikes": 2, "outs": 1 },
-        "baseState": { "base1": "x", "base2": "x", "base3": "x" },
+        "bso": { "balls": 2, "strikes": 2, "outs": 1 }
+      }
+    },
+    {
+      "time": 30000,
+      "updates": {
+        "bso": { "balls": 2, "strikes": 2, "outs": 2 },
+        "baseState": { "base1": "x", "base2": "x", "base3": "x" }
+      }
+    },
+    {
+      "time": 70000,
+      "updates": {
+        "bso": { "balls": 3, "strikes": 2, "outs": 2 }
+      }
+    },
+    {
+      "time": 91000,
+      "updates": {
+        "bso": { "balls": 0, "strikes": 0, "outs": 2 },
+        "baseState": { "base1": "o", "base2": "x", "base3": "x" },
         "batter": "박승욱"
       }
     },
     {
-      "time": 10000,
+      "time": 200000,
       "updates": {
-        "score": { "team1": 8, "team2": 8 },
-        "bso": { "balls": 0, "strikes": 1, "outs": 1 },
+        "score": { "team1": 8, "team2": 7 },
+        "bso": { "balls": 0, "strikes": 0, "outs": 2 },
+        "baseState": { "base1": "x", "base2": "x", "base3": "x" },
         "batter": "정보근"
+      }
+    },
+    {
+      "time": 255000,
+      "updates": {
+        "bso": { "balls": 0, "strikes": 1, "outs": 2 }
+      }
+    },
+    {
+      "time": 280000,
+      "updates": {
+        "bso": { "balls": 1, "strikes": 1, "outs": 2 }
       }
     }
   ]
