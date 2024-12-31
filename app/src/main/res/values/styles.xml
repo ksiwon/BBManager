@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="T1">
-        <item name="android:fontFamily">@font/pretendard_bold</item>
+        <item name="android:fontFamily">@font/pretendard_black</item>
         <item name="android:textSize">40sp</item>
+        <item name="android:letterSpacing">-0.07</item>
     </style>
 
     <style name="T2">
