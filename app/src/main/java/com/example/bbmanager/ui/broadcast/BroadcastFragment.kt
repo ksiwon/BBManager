@@ -6,19 +6,32 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.app.AlertDialog
+import android.os.Bundle
+import android.util.Log
+import android.view.GestureDetector
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.bbmanager.R
 import org.json.JSONObject
 
 class BroadcastFragment : Fragment() {
 
     private val broadcastViewModel: BroadcastViewModel by viewModels()
+
     private lateinit var mediaPlayer: MediaPlayer
     private var isPlaying: Boolean = false
     private var isMuted: Boolean = false
@@ -97,11 +110,22 @@ class BroadcastFragment : Fragment() {
         matchupSosTextView = root.findViewById(R.id.matchup_sos)
         matchupAvgTextView = root.findViewById(R.id.matchup_avg)
         matchupOpsTextView = root.findViewById(R.id.matchup_ops)
-    }
 
-    private fun initializeDefaultValues() {
-        // 점수판 초기화
-        broadcastViewModel.scoreboardData.value?.let { scoreboard ->
+        // FAB 초기화
+        val fabChat = root.findViewById<FloatingActionButton>(R.id.fab_chat)
+
+
+
+        // BroadcastFragment에서 FAB 보이기
+        fabChat.show()
+
+        // FAB 클릭 이벤트; 팝업 두둥
+        fabChat.setOnClickListener {
+            val customDialog = CustomDialogFragment()
+            customDialog.show(parentFragmentManager, "CustomDialog")
+        }
+
+        broadcastViewModel.scoreboardData.observe(viewLifecycleOwner) { scoreboard ->
             val scores = scoreboard.split(" : ")
             if (scores.size == 2) {
                 scoreLotteTextView.text = scores[0]
@@ -304,6 +328,8 @@ class BroadcastFragment : Fragment() {
                 }
             }
         })
+        
+        return root
     }
 
     override fun onDestroyView() {
@@ -312,5 +338,10 @@ class BroadcastFragment : Fragment() {
             mediaPlayer.release()
         }
         handler.removeCallbacksAndMessages(null)
+
+        // 프래그먼트를 떠날 때 FAB 숨기기
+        val fabChat = requireActivity().findViewById<FloatingActionButton>(R.id.fab_chat)
+        fabChat?.hide()
     }
 }
+

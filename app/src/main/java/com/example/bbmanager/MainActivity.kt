@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.bbmanager.databinding.ActivityMainBinding
 import android.util.Log
+import android.view.WindowManager
 import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("MainActivity", "onCreate: MainActivity started")
-
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -47,7 +48,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_contact, R.id.navigation_gallery, R.id.navigation_broadcast
             )
         )
-        Log.d("MainActivity", "넘어갔는데 왜 꺼지누")
 
         //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
