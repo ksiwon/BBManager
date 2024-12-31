@@ -11,7 +11,8 @@ import com.example.bbmanager.R
 
 class StadiumsAdapter(
     private val context: Context,
-    private val stadiums: List<Stadium>
+    private val stadiums: List<Stadium>,
+    private val onImageClick: (String) -> Unit  // 추가된 콜백
 ) : RecyclerView.Adapter<StadiumsAdapter.StadiumViewHolder>() {
 
     class StadiumViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -27,8 +28,11 @@ class StadiumsAdapter(
     override fun onBindViewHolder(holder: StadiumViewHolder, position: Int) {
         val stadium = stadiums[position]
         holder.titleTextView.text = stadium.name
-        holder.horizontalRecyclerView.adapter = ImagesAdapter(context, stadium.images)
-        holder.horizontalRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+
+        // ImagesAdapter 생성 시 콜백을 그대로 넘겨줍니다
+        holder.horizontalRecyclerView.adapter = ImagesAdapter(context, stadium.images, onImageClick)
+        holder.horizontalRecyclerView.layoutManager =
+            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
     }
 
     override fun getItemCount(): Int = stadiums.size

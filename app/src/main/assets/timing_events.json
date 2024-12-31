@@ -1,0 +1,30 @@
+{
+  "timingEvents": [
+    {
+      "time": 0,
+      "updates": {
+        "score": { "team1": 6, "team2": 7 },
+        "bso": { "balls": 1, "strikes": 2, "outs": 1 },
+        "baseState": { "base1": "x", "base2": "x", "base3": "o" },
+        "batter": "정훈"
+      }
+    },
+    {
+      "time": 5000,
+      "updates": {
+        "score": { "team1": 7, "team2": 8 },
+        "bso": { "balls": 3, "strikes": 2, "outs": 1 },
+        "baseState": { "base1": "x", "base2": "x", "base3": "x" },
+        "batter": "박승욱"
+      }
+    },
+    {
+      "time": 10000,
+      "updates": {
+        "score": { "team1": 8, "team2": 8 },
+        "bso": { "balls": 0, "strikes": 1, "outs": 1 },
+        "batter": "정보근"
+      }
+    }
+  ]
+}
