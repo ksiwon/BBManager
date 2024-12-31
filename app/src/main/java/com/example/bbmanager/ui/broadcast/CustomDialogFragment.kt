@@ -1,6 +1,7 @@
 package com.example.bbmanager.ui.broadcast
 
 import android.content.Context
+import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -46,7 +47,6 @@ class CustomDialogFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.custom_dialog, container, false)
-
         val layoutInput: View = view.findViewById(R.id.message_input_layout) // 입력창 레이아웃
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_messages)
         val editTextMessage: EditText = view.findViewById(R.id.edit_text_message)
@@ -59,15 +59,29 @@ class CustomDialogFragment : BottomSheetDialogFragment() {
 
 
         ViewCompat.setOnApplyWindowInsetsListener(view) { _, insets ->
-            Log.d("KeyboardTest", "Insets received: ${insets.toString()}")
             val imeHeight = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
-            Log.d("KeyboardTest", "IME Height: $imeHeight")
+            val isKeyboardVisible = imeHeight > 0
+            Log.d("KeyboardHeight", "Keyboard Height: $imeHeight")
+            // 입력창 위치 조정
+            //val params = layoutInput.layoutParams as ConstraintLayout.LayoutParams
+            //params.bottomMargin = imeHeight
+            //layoutInput.layoutParams = params
+
+            // 키보드 상태에 따라 RecyclerView 스크롤
+            // 키보드 높이에 따라 입력창 위치 조정
             val params = layoutInput.layoutParams as ConstraintLayout.LayoutParams
-            params.bottomMargin = imeHeight
+            params.bottomMargin = if (isKeyboardVisible) imeHeight else 0
             layoutInput.layoutParams = params
-            Log.d("KeyboardTest", "Bottom margin set to: ${params.bottomMargin}")
+
+
+            if (isKeyboardVisible) {
+            recyclerView.scrollToPosition(messageAdapter.itemCount - 1)
+            }
+
             insets
+
         }
+
 
 
         sendButton.setOnClickListener {
@@ -128,35 +142,52 @@ class CustomDialogFragment : BottomSheetDialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-
         // BottomSheetDialog의 높이 설정
         val dialog = dialog as? BottomSheetDialog
         val bottomSheet = dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
         bottomSheet?.let {
             val behavior = BottomSheetBehavior.from(it)
-            val displayMetrics = resources.displayMetrics
-            val height = (displayMetrics.heightPixels * 0.8).toInt() // 화면 높이의 80%
-            it.layoutParams.height = height
-            it.requestLayout()
+            val displayMetrics = requireContext().resources.displayMetrics
+            val screenHeight = displayMetrics.heightPixels
+
+            // BottomSheet의 기본 높이를 화면의 80%로 설정
+            val layoutParams = it.layoutParams
+            layoutParams.height = (screenHeight * 0.8).toInt()
+            it.layoutParams = layoutParams
+
+            val rootView = requireActivity().window.decorView.rootView
+            rootView.viewTreeObserver.addOnGlobalLayoutListener {
+                val rect = Rect()
+                rootView.getWindowVisibleDisplayFrame(rect)
+                val usableHeight = rect.height() // 키보드가 차지하지 않은 높이
+
+                // BottomSheet의 높이를 설정
+                val layoutParams = it.layoutParams
+                layoutParams.height = (usableHeight * 0.8).toInt()
+                it.layoutParams = layoutParams
+                Log.d("BottomSheetHeight", "Usable Height: $usableHeight")
+            }
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
+
+
         //dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+
+//        bottomSheet?.let {
+//            val behavior = BottomSheetBehavior.from(it)
+//            val displayMetrics = resources.displayMetrics
+//            val height = (displayMetrics.heightPixels * 0.8).toInt() // 화면 높이의 80%
+//            it.layoutParams.height = height
+//            it.requestLayout()
+//            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+//        }
+//        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
 
 
 }
 
-
-private fun <T> Call<T>.enqueue(callback: Callback<T>) {
-    try {
-        this.enqueue(callback)
-    } catch (e: Exception) {
-        Log.e("NetworkTest", "Enqueue error: ${e.message}")
-        callback.onFailure(this, e)
-    }
-}
 
 
 
