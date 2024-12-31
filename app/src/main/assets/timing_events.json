@@ -10,26 +10,26 @@
       }
     },
     {
-      "time": 27000,
+      "time": 9000,
       "updates": {
         "bso": { "balls": 2, "strikes": 2, "outs": 1 }
       }
     },
     {
-      "time": 30000,
+      "time": 12000,
       "updates": {
         "bso": { "balls": 2, "strikes": 2, "outs": 2 },
         "baseState": { "base1": "x", "base2": "x", "base3": "x" }
       }
     },
     {
-      "time": 70000,
+      "time": 27000,
       "updates": {
         "bso": { "balls": 3, "strikes": 2, "outs": 2 }
       }
     },
     {
-      "time": 91000,
+      "time": 38000,
       "updates": {
         "bso": { "balls": 0, "strikes": 0, "outs": 2 },
         "baseState": { "base1": "o", "base2": "x", "base3": "x" },
@@ -37,7 +37,7 @@
       }
     },
     {
-      "time": 200000,
+      "time": 55000,
       "updates": {
         "score": { "team1": 8, "team2": 7 },
         "bso": { "balls": 0, "strikes": 0, "outs": 2 },
@@ -46,13 +46,13 @@
       }
     },
     {
-      "time": 255000,
+      "time": 67000,
       "updates": {
         "bso": { "balls": 0, "strikes": 1, "outs": 2 }
       }
     },
     {
-      "time": 280000,
+      "time": 77000,
       "updates": {
         "bso": { "balls": 1, "strikes": 1, "outs": 2 }
       }
