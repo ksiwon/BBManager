@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.app.AlertDialog
-import android.os.Bundle
 import android.util.Log
 import android.view.GestureDetector
 import android.view.LayoutInflater
@@ -26,6 +25,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bbmanager.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.json.JSONObject
 
 class BroadcastFragment : Fragment() {
@@ -74,7 +74,6 @@ class BroadcastFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_broadcast, container, false)
 
         initializeViews(root)
-        initializeDefaultValues() // 초기값 강제로 반영
         setupObservers() // LiveData 관찰 설정
         setupMediaPlayer(root) // 미디어 플레이어 초기화
         loadTimingEvents() // JSON 이벤트 로드
@@ -328,8 +327,6 @@ class BroadcastFragment : Fragment() {
                 }
             }
         })
-        
-        return root
     }
 
     override fun onDestroyView() {
