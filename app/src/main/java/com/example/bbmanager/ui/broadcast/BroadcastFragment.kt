@@ -158,7 +158,6 @@ class BroadcastFragment : Fragment() {
     ) {
         val timingData = readTimingData()
         val newDataQueue = mutableListOf<MutableMap<String, Any>>(
-            mutableMapOf<String, Any>("선수명" to "나승엽", "percent" to 37.2f),
             mutableMapOf<String, Any>("선수명" to "정훈", "percent" to 20.6f),
             mutableMapOf<String, Any>("선수명" to "박승욱", "percent" to 67.4f)
         )
@@ -233,7 +232,14 @@ class BroadcastFragment : Fragment() {
                 }
             }
         }
-        handler.post(runnable)
+// 첫 번째 타이밍 데이터가 0이면 다음 타이밍 데이터부터 시작
+        if (timingData[0] == 0L) {
+            if (timingData.size > 1) {
+                handler.postDelayed(runnable, timingData[1])
+            }
+        } else {
+            handler.postDelayed(runnable, timingData[0])
+        }
     }
 
     private fun readTimingData(): List<Long> {
