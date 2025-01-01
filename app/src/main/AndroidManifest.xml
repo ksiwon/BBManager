@@ -22,7 +22,8 @@
             android:exported="false" />
         <activity
             android:name=".Contact"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable"/>
         <activity
             android:name=".Gallery"
             android:exported="false" />
