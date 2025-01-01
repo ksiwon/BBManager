@@ -158,10 +158,9 @@ class BroadcastFragment : Fragment() {
     ) {
         val timingData = readTimingData()
         val newDataQueue = mutableListOf<MutableMap<String, Any>>(
-            mutableMapOf<String, Any>("선수명" to "정훈", "percent" to 37.2f),
-            mutableMapOf<String, Any>("선수명" to "정훈", "percent" to 18.0f),
-            mutableMapOf<String, Any>("선수명" to "박승욱", "percent" to 20.6f),
-            mutableMapOf<String, Any>("선수명" to "정보근", "percent" to 67.4f)
+            mutableMapOf<String, Any>("선수명" to "나승엽", "percent" to 37.2f),
+            mutableMapOf<String, Any>("선수명" to "정훈", "percent" to 20.6f),
+            mutableMapOf<String, Any>("선수명" to "박승욱", "percent" to 67.4f)
         )
 
 
