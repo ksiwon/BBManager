@@ -6,16 +6,40 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.bbmanager.R
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.json.JSONObject
+import org.json.JSONArray
+import java.io.BufferedReader
+import java.io.InputStreamReader
+
+
+import com.github.mikephil.charting.formatter.ValueFormatter
+
+class PlayerNameFormatter(private val playerNames: List<String>) : ValueFormatter() {
+    override fun getFormattedValue(value: Float): String {
+        val index = value.toInt()
+        return if (index >= 0 && index < playerNames.size) {
+            playerNames[index] // 인덱스에 해당하는 선수명 반환
+        } else {
+            "" // 범위를 벗어난 경우 빈 문자열 반환
+        }
+    }
+}
+
 
 class BroadcastFragment : Fragment() {
 
@@ -67,8 +91,210 @@ class BroadcastFragment : Fragment() {
         setupMediaPlayer(root) // 미디어 플레이어 초기화
         loadTimingEvents() // JSON 이벤트 로드
 
+        val initialData = readInitialData()
+
+        // root 뷰를 통해 lineChart 찾기
+        val lineChart = root.findViewById<LineChart>(R.id.line_chart)
+        setupChart(lineChart, initialData)
+        Log.d("BroadcastFragment", "LineChart view initialized: $lineChart")
+
         return root
     }
+
+    private fun readTimingData(): List<Long> {
+        val timingData = mutableListOf<Long>()
+        try {
+            val inputStream = resources.openRawResource(R.raw.timing_event_for_win_per) // JSON 파일 경로
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            val jsonString = bufferedReader.use{it.readText()}
+            Log.d("BroadcastFragment", "Raw JSON timing data: $jsonString")
+
+            val jsonArray = JSONArray(jsonString)
+            for (i in 0 until jsonArray.length()) {
+                val jsonObject = jsonArray.getJSONObject(i)
+                if (jsonObject.has("time")) {
+                    timingData.add(jsonObject.getLong("time"))
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("BroadcastFragment", "Error reading timing data", e)
+            e.printStackTrace()
+        }
+            if (timingData.isEmpty()) {
+                Log.e("BroadcastFragment", "업뎃안됨슈바 cannot update chart.")
+                return listOf(0L, 12000L, 38000L, 55000L)
+            }
+
+        return timingData
+    }
+
+    private fun createLineDataSet(entries: ArrayList<Entry>, label: String): LineDataSet {
+        val dataSet = LineDataSet(entries, label)
+        dataSet.color = ContextCompat.getColor(requireContext(), R.color.Navy) // 라인 색상
+        dataSet.valueTextColor = ContextCompat.getColor(requireContext(), R.color.Navy) // 값 텍스트 색상
+        dataSet.lineWidth = 4f // 라인 두께
+        dataSet.circleRadius = 4f // 원의 반지름
+        dataSet.setDrawCircles(true) // 원 표시
+        dataSet.setDrawValues(true) // 값 표시
+        return dataSet
+    }
+
+    private fun setupYAxis(lineChart: LineChart) {
+        val leftAxis = lineChart.axisLeft
+        leftAxis.axisMinimum = 0f // 최소값
+        leftAxis.axisMaximum = 100f // 최대값
+        leftAxis.granularity = 10f // 간격
+        //leftAxis.setDrawGridLines(true) // 그리드 라인 표시
+        leftAxis.setDrawLabels(true) // 레이블 표시
+
+
+    }
+
+    private fun setupChart(lineChart: LineChart, initialData: MutableList<MutableMap<String, Any>>) {
+        // LineDataSet 생성
+        val entries = ArrayList<Entry>()
+        val playerNames = mutableListOf<String>()
+
+        for ((index, player) in initialData.withIndex()) {
+            val playerName = player["선수명"] as String
+            val percent = player["percent"] as Float
+
+            entries.add(Entry(index.toFloat(), percent))
+            playerNames.add(playerName)
+        }
+
+        val dataSet = createLineDataSet(entries, "롯데 승리 확률")
+
+        // LineData 생성 및 차트에 데이터 설정
+        val lineData = LineData(dataSet)
+        lineChart.data = lineData
+        val xAxis = lineChart.xAxis
+        xAxis.valueFormatter = PlayerNameFormatter(playerNames)
+        xAxis.granularity = 1f
+        xAxis.position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+
+        setupYAxis(lineChart) // 세로축 설정 추가
+
+        lineChart.description.isEnabled = false // 차트 설명 비활성화
+
+        //lineChart.axisLeft.setDrawGridLines(false)
+        //lineChart.axisRight.isEnabled = false // 오른쪽 Y축 비활성화
+        lineChart.invalidate() // 차트 갱신
+
+
+        //updateChart(lineChart, initialData)
+    }
+
+
+
+
+    private fun updateChartWithTiming(lineChart: LineChart, initialData: MutableList<MutableMap<String, Any>>) {
+        val timingData = readTimingData()
+        val newDataQueue = mutableListOf(
+            mutableMapOf("선수명" to "정훈", "percent" to 37.2f),
+            mutableMapOf("선수명" to "정훈", "percent" to 18.0f),
+            mutableMapOf("선수명" to "박승욱", "percent" to 20.6f) ,
+            mutableMapOf("선수명" to "정보근", "percent" to 67.4f)
+        )
+        if (timingData.isEmpty()) {
+            Log.e("BroadcastFragment", "no timing data ㅅㅂ")
+            return
+        }
+        val runnable = object : Runnable {
+            private var currentIndex = 0
+            override fun run() {
+                if (currentIndex >= timingData.size || newDataQueue.isEmpty()) {
+                    Log.d("BroadcastFragment", "All updates completed or no more data.")
+                    return // 모든 업데이트가 완료되면 종료
+                }
+
+                if (initialData.isNotEmpty()) {
+                    // 기존 데이터에서 첫 번째 항목 제거
+                    initialData.removeAt(0)
+                }
+
+                // 새 데이터 삽입
+                if (newDataQueue.isNotEmpty()) {
+                    @Suppress("UNCHECKED_CAST")
+                    val newData = newDataQueue.removeAt(0) as MutableMap<String, Any>
+                    initialData.add(newData)
+                    Log.d("BroadcastFragment", "Data added: $newData")
+                }
+                // 차트 데이터 갱신
+                val entries = ArrayList<Entry>()
+                val playerNames = mutableListOf<String>()
+                for ((index, player) in initialData.withIndex()) {
+                    val playerName = player["선수명"] as String
+                    val percent = player["percent"] as Float
+                    entries.add(Entry(index.toFloat(), percent))
+                    playerNames.add(playerName)
+                }
+
+                val dataSet = createLineDataSet(entries, "롯데 승리 확률")
+                val lineData = LineData(dataSet)
+                lineChart.data = lineData
+
+                //val xAxis = lineChart.xAxis
+                //xAxis.valueFormatter = PlayerNameFormatter(playerNames)
+                //xAxis.granularity = 1f
+                //xAxis.position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
+
+                //lineChart.axisLeft.setDrawGridLines(false)
+                //lineChart.description.isEnabled = false
+                setupYAxis(lineChart) // 세로축 설정 유지
+                lineChart.invalidate() // 차트 새로고침
+
+                if (currentIndex < timingData.size -1) {
+                    val nextDelay = timingData[currentIndex + 1] - timingData[currentIndex]
+                    currentIndex++
+                    handler.postDelayed(this, nextDelay)
+                }
+            }
+        }
+        //handler.removeCallbacksAndMessages(null)
+
+        // 5초마다 실행 시작
+        handler.post(runnable)
+    }
+
+
+    private fun readInitialData(): MutableList<MutableMap<String, Any>> {
+        val initialData = mutableListOf<MutableMap<String, Any>>()
+
+        try {
+            // JSON 파일 읽기
+            val inputStream = resources.openRawResource(R.raw.winning_percent)
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            val stringBuilder = StringBuilder()
+            bufferedReader.useLines { lines -> lines.forEach { stringBuilder.append(it) } }
+            val jsonString = stringBuilder.toString()
+            Log.d("BroadcastFragment", "Raw JSON data: $jsonString")
+
+            // JSON 파싱
+            val jsonArray = JSONArray(jsonString)
+            for (i in 0 until jsonArray.length()) {
+                val jsonObject = jsonArray.getJSONObject(i)
+                val playerName = jsonObject.getString("선수명") // 선수명
+                val percent = jsonObject.getDouble("percent").toFloat() // 퍼센트 값
+                //initialData.add(mutableMapOf("선수명" to playerName, "percent" to percent))
+
+                val data = mutableMapOf<String, Any> (
+                    "선수명" to playerName,
+                    "percent" to percent
+                )
+                initialData.add(data)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return initialData
+    }
+
+
+
+
 
     private fun initializeViews(root: View) {
         teamLotteTextView = root.findViewById(R.id.team_lotte)
@@ -151,6 +377,15 @@ class BroadcastFragment : Fragment() {
             matchupOpsTextView.text = String.format("%.3f", vsInfo.ops)
         }
     }
+
+
+
+
+
+
+
+
+
 
     private fun setupObservers() {
         broadcastViewModel.scoreboardData.observe(viewLifecycleOwner) { scoreboard ->
@@ -281,12 +516,19 @@ class BroadcastFragment : Fragment() {
             if (isPlaying) {
                 mediaPlayer.pause()
                 radioPlayPauseButton.setImageResource(R.drawable.ic_play)
+                // 차트 갱신 중단
+                handler.removeCallbacksAndMessages(null)
             } else {
                 val result = audioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
                 if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                     mediaPlayer.start()
                     radioPlayPauseButton.setImageResource(R.drawable.ic_pause)
                     trackAudioProgress()
+                    // 차트 갱신 시작
+                    val lineChart = requireView().findViewById<LineChart>(R.id.line_chart)
+                    val initialData = readInitialData()
+                    updateChartWithTiming(lineChart, initialData)
+
                 }
             }
             isPlaying = !isPlaying
