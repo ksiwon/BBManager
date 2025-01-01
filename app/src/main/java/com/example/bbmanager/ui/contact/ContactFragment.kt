@@ -97,6 +97,9 @@ class ContactFragment : Fragment() {
             }
         }
 
+
+
+
         // Set text data
         titleTextView.text = contact.name
         phoneNumberTextView.text = contact.phone
