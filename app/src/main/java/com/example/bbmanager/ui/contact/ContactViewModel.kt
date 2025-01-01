@@ -42,7 +42,8 @@ class ContactViewModel : ViewModel() {
                     val name = contactObject.getString("name")
                     val phone = contactObject.getString("phone")
                     val img = contactObject.getString("img")
-                    contacts.add(Contact(name, phone, img))
+                    val website = contactObject.get("website").toString()
+                    contacts.add(Contact(name, phone, img, website))
                 }
                 groupList.add(ContactGroup(groupName, contacts))
             }

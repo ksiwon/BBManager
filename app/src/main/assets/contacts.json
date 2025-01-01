@@ -4,12 +4,14 @@
             {
                 "name": "인터파크",
                 "phone": "1544-1555",
-                "img": "interpark"
+                "img": "interpark",
+                "website": "https://www.interpark.com/"
             },
             {
                 "name": "티켓링크",
                 "phone": "1588-7890",
-                "img": "ticketlink"
+                "img": "ticketlink",
+                "website": "https://www.ticketlink.co.kr/home"
             }
         ]
     },
@@ -18,49 +20,59 @@
             {
                 "name": "롯데 자이언츠",
                 "phone": "051-590-9000",
-                "img" : "lotte"
+                "img" : "lotte",
+                "website": "https://www.youtube.com/@giantstv"
             },
             {
                 "name": "LG 트윈스",
                 "phone": "02-2005-5705",
-                "img" : "lg"
+                "img" : "lg",
+                "website": "https://www.youtube.com/@LGTwinsTV"
             },
             {
                 "name": "KIA 타이거즈",
                 "phone": "070-7689-8000",
-                "img" : "kia"
+                "img" : "kia",
+                "website": "https://www.youtube.com/@kiatigerstv"
             },
             {
                 "name": "삼성 라이온즈",
                 "phone": "053-780-3300",
-                "img" : "samsung"
+                "img" : "samsung",
+                "website": "https://www.youtube.com/@lionstv1982"
             },
             {
                 "name": "두산 베어스",
                 "phone": "02-2240-1777",
-                "img" : "doosan"
+                "img" : "doosan",
+                "website": "https://www.youtube.com/@bearstv1982"
             },
             {
                 "name": "한화 이글스",
                 "phone": "042-630-8200",
-                "img" : "hanhwa"
+                "img" : "hanhwa",
+                "website": "https://www.youtube.com/@HanwhaEagles_official"
             },
             {
                 "name": "SSG 랜더스",
                 "phone": "1588-7890",
-                "img" : "ssg"
+                "img" : "ssg",
+                "website": "https://www.youtube.com/@SSGLANDERS"
             },{
                 "name": "NC 다이노스",
                 "phone": "1644-9112",
-                "img" : "nc"
+                "img" : "nc",
+                "website": "https://www.youtube.com/@ncdinos"
             },{
                 "name": "키움 히어로즈",
                 "phone": "02-3660-1000",
-                "img" : "kiwoom"
+                "img" : "kiwoom",
+                "website": "https://www.youtube.com/@heroesbaseballclub"
             },{
                 "name": "KT 위즈",
                 "phone": "1899-5916",
-                "img" : "kt"
+                "img" : "kt",
+                "website": "https://www.youtube.com/@ktwiztv"
             }
         ]
     }

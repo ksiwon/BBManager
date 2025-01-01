@@ -79,10 +79,16 @@ class ContactFragment : Fragment() {
         val callImageView = cardView.findViewById<ImageView>(R.id.callImageView)
 
 
-
         Log.d("ContactFragment", "Contact img: ${contact.img}")
         //val resourceId = imageMapping[contact.img]
-        //val resourceId = requireContext().resources.getIdentifier(contact.img, "drawable", requireContext().packageName)
+        val resourceId = requireContext().resources.getIdentifier(contact.img, "drawable", requireContext().packageName)
+        logoImageView.setImageResource(resourceId)
+
+        logoImageView.setOnClickListener{
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(contact.website))
+            startActivity(browserIntent)
+        }
+
 
         callImageView.setOnClickListener {
             val phoneNumber = contact.phone.trim() // 공백 제거
@@ -100,39 +106,15 @@ class ContactFragment : Fragment() {
 
 
 
+
         // Set text data
         titleTextView.text = contact.name
         phoneNumberTextView.text = contact.phone
-        val resourceId = requireContext().resources.getIdentifier(contact.img, "drawable", requireContext().packageName)
-        logoImageView.setImageResource(resourceId)
+        //val resourceId = requireContext().resources.getIdentifier(contact.img, "drawable", requireContext().packageName)
+        //logoImageView.setImageResource(resourceId)
 
         return cardView
     }
 
-    // 동적 UI 요소 생성
-    private fun createContactView(contact: Contact): View {
-        // 개별 연락처를 표시할 LinearLayout 생성
-        val contactLayout = LinearLayout(requireContext()).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(16, 16, 16, 16)
-        }
 
-        // 이름 TextView
-        val nameTextView = TextView(requireContext()).apply {
-            text = contact.name
-            setPadding(0, 0, 0, 8)
-        }
-
-        // 전화번호 TextView
-        val phoneTextView = TextView(requireContext()).apply {
-            text = contact.phone
-        }
-
-        // 뷰를 LinearLayout에 추가
-        contactLayout.addView(nameTextView)
-        contactLayout.addView(phoneTextView)
-        //contactLayout.addView(imgTextView)
-
-        return contactLayout
-    }
 }

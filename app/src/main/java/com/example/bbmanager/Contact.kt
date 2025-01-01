@@ -12,6 +12,7 @@ data class ContactGroup (
 data class Contact(
     val name: String,
     val phone: String,
-    val img: String
+    val img: String,
+    val website: String
 )
 
