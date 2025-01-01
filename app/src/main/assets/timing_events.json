@@ -21,8 +21,7 @@
       "updates": {
         "bso": { "balls": 2, "strikes": 2, "outs": 2 },
         "baseState": { "base1": "x", "base2": "x", "base3": "x" },
-        "선수명": "정훈",
-        "win_per": 18
+        "선수명": "정훈"
       }
     },
     {
