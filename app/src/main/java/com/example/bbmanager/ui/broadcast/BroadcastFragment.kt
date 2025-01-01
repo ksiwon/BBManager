@@ -227,25 +227,6 @@ class BroadcastFragment : Fragment(), TextToSpeech.OnInitListener {
                 xAxis.position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
                 xAxis.setDrawGridLines(false)
 
-
-                // 차트 상단 중앙에 "롯데 승리 확률" 표시
-                lineChart.description.isEnabled = true
-                lineChart.description.text = "롯데 승리 확률"
-                lineChart.description.textSize = 16f
-                lineChart.description.textColor =
-                    ContextCompat.getColor(requireContext(), R.color.Black)
-
-                // addOnGlobalLayoutListener: description 위치 조정 (중앙 상단)
-                lineChart.viewTreeObserver.addOnGlobalLayoutListener {
-                    val centerX = lineChart.width / 2f
-                    val offsetY = 20f
-                    lineChart.description.xOffset = centerX
-                    lineChart.description.yOffset = offsetY
-                    lineChart.description.textAlign =
-                        android.graphics.Paint.Align.CENTER
-                    lineChart.invalidate()
-                }
-
                 if (currentIndex < timingData.size - 1) {
                     val nextDelay = timingData[currentIndex + 1] - timingData[currentIndex]
                     currentIndex++

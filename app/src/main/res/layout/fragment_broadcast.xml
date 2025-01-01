@@ -641,6 +641,20 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <!-- 라인 차트 Card 제목 -->
+            <TextView
+                android:id="@+id/line_chart_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="롯데 승리 확률"
+                style="@style/T3"
+                app:layout_constraintTop_toBottomOf="@id/matchup_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp" />
+
             <!-- 라인 차트 Card -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/line_chart_card"
@@ -649,7 +663,7 @@
                 android:layout_marginVertical="16dp"
                 android:layout_marginHorizontal="18dp"
                 app:cardCornerRadius="16dp"
-                app:layout_constraintTop_toBottomOf="@id/matchup_card"
+                app:layout_constraintTop_toBottomOf="@id/line_chart_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:cardElevation="0dp">
@@ -666,8 +680,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="240dp"
                         android:outlineAmbientShadowColor="@color/DarkGray"
-                        android:outlineSpotShadowColor="@color/Cherry"
-                        android:layout_marginTop="16dp" />
+                        android:outlineSpotShadowColor="@color/Cherry" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
