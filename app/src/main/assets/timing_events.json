@@ -19,8 +19,7 @@
       "time": 12000,
       "updates": {
         "bso": { "balls": 2, "strikes": 2, "outs": 2 },
-        "baseState": { "base1": "x", "base2": "x", "base3": "x" },
-        "선수명": "정훈"
+        "baseState": { "base1": "x", "base2": "x", "base3": "x" }
       }
     },
     {
@@ -35,7 +34,8 @@
         "bso": { "balls": 0, "strikes": 0, "outs": 2 },
         "baseState": { "base1": "o", "base2": "x", "base3": "x" },
         "batter": "박승욱",
-        "win_per": 20.6
+        "winningPercent": [
+          { "선수명": "정훈", "percent": 20.6 }]
       }
     },
     {
@@ -45,7 +45,8 @@
         "bso": { "balls": 0, "strikes": 0, "outs": 2 },
         "baseState": { "base1": "x", "base2": "x", "base3": "x" },
         "batter": "정보근",
-        "win_per": 67.4
+        "winningPercent": [
+          { "선수명": "박승욱", "percent": 67.4 }]
       }
     },
     {
