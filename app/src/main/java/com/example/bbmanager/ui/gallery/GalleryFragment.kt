@@ -19,6 +19,8 @@ class GalleryFragment : Fragment() {
     // 1) 오버레이와 확대 이미지 View 참조 변수
     private lateinit var enlargedImageContainer: FrameLayout
     private lateinit var enlargedImageView: ImageView
+    private var isImageEnlarged = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,10 +35,6 @@ class GalleryFragment : Fragment() {
         enlargedImageContainer = root.findViewById(R.id.enlarged_image_container)
         enlargedImageView = root.findViewById(R.id.enlarged_image_view)
 
-        // 오버레이 바깥 부분(FrameLayout)을 누르면 숨기기
-        enlargedImageContainer.setOnClickListener {
-            it.visibility = View.GONE
-        }
         // 만약 "이미지를 눌러도 닫히지 않게" 하려면,
         // 아래처럼 이미지 자체에 이벤트를 소비시키면 됩니다.
         // enlargedImageView.setOnClickListener { /* do nothing */ }
@@ -75,11 +73,34 @@ class GalleryFragment : Fragment() {
 
     // 4) 실제로 이미지를 클릭했을 때, 오버레이로 확대 이미지 표시하는 콜백
     private fun onImageClicked(imageName: String) {
-        // 이미지 리소스 ID 획득
+        // 이미지 리소스 ID 가져오기
         val imageResId = resources.getIdentifier(imageName, "drawable", requireContext().packageName)
-        // 확대 이미지에 적용
-        enlargedImageView.setImageResource(imageResId)
-        // 오버레이 보이기
-        enlargedImageContainer.visibility = View.VISIBLE
+
+        if (!isImageEnlarged) {
+            enlargedImageView.setImageResource(imageResId)
+            fadeIn(enlargedImageContainer)
+        } else {
+            fadeOut(enlargedImageContainer)
+        }
+        isImageEnlarged = !isImageEnlarged
+    }
+
+    private fun fadeIn(view: View, duration: Long = 300) {
+        view.alpha = 0f
+        view.visibility = View.VISIBLE
+        view.animate()
+            .alpha(1f)
+            .setDuration(duration)
+            .start()
+    }
+
+    private fun fadeOut(view: View, duration: Long = 300) {
+        view.animate()
+            .alpha(0f)
+            .setDuration(duration)
+            .withEndAction {
+                view.visibility = View.GONE
+            }
+            .start()
     }
 }
