@@ -16,9 +16,13 @@ Tech Stack
 -----------
 
 IDE: Android Studio
+
 Frontend: Kotlin
+
 Design: Figma
+
 API: gpt-3.5-turbo
+
 Data Resource: Naver Sports
 
 
