@@ -201,6 +201,14 @@ class BroadcastFragment : Fragment() {
                 val dataSet = createLineDataSet(entries, "")
                 lineChart.data = LineData(dataSet)
 
+                // X축의 선수명을 업데이트
+                val xAxis = lineChart.xAxis
+                xAxis.valueFormatter = PlayerNameFormatter(playerNames)
+                xAxis.granularity = 1f
+                xAxis.position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
+                xAxis.setDrawGridLines(false)
+
+
                 // 차트 상단 중앙에 "롯데 승리 확률" 표시
                 lineChart.description.isEnabled = true
                 lineChart.description.text = "롯데 승리 확률"
