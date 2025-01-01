@@ -117,6 +117,7 @@ class CustomDialogFragment : BottomSheetDialogFragment() {
                                 messageAdapter.addMessage(ChatMessage(errorMessage, false))
                                 recyclerView.scrollToPosition(messageAdapter.itemCount - 1)
                                 Log.e("NetworkTest", "Error: $errorMessage")
+                                Log.e("NetworkTest", "Error: $errorMessage")
                             }
                         } catch (e: Exception) {
                             val exceptionMessage = "Parsing error: ${e.localizedMessage}"

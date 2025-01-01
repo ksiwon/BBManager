@@ -21,4 +21,8 @@
     <color name="LightOrange">#FFFFF5F2</color>
     <color name="LightGray">#FFDDDDDD</color>
     <color name="DarkGray">#FF444444</color>
+
+    <color name="design_default_color_primary">#6200EE</color>
+    <color name="design_default_color_primary_dark">#3700B3</color>
+
 </resources>
