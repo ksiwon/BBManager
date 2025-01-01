@@ -6,6 +6,7 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.util.Locale
 
 class PlayerNameFormatter(private val playerNames: List<String>) : ValueFormatter() {
     override fun getFormattedValue(value: Float): String {
@@ -38,9 +40,11 @@ class PlayerNameFormatter(private val playerNames: List<String>) : ValueFormatte
     }
 }
 
-class BroadcastFragment : Fragment() {
+class BroadcastFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private val broadcastViewModel: BroadcastViewModel by viewModels()
+    private lateinit var textToSpeech: TextToSpeech
+    private var isTtsEnabled = true
 
     private lateinit var mediaPlayer: MediaPlayer
     private var isPlaying: Boolean = false
@@ -83,6 +87,8 @@ class BroadcastFragment : Fragment() {
     ): View {
         val root = inflater.inflate(R.layout.fragment_broadcast, container, false)
 
+        textToSpeech = TextToSpeech(requireContext(), this)
+
         initializeViews(root)
         setupObservers()
         setupMediaPlayer(root)
@@ -95,6 +101,21 @@ class BroadcastFragment : Fragment() {
         setupChart(lineChart, initialData)
 
         return root
+    }
+
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            textToSpeech.language = Locale.KOREA
+        } else {
+            Log.e("BroadcastFragment", "TextToSpeech initialization failed.")
+        }
+    }
+
+    private fun speakUpdate(message: String) {
+        if (isTtsEnabled) {
+            textToSpeech.speak(message, TextToSpeech.QUEUE_FLUSH, null, null)
+        }
     }
 
     /** 우측 축 제거, etc. **/
@@ -158,7 +179,6 @@ class BroadcastFragment : Fragment() {
     ) {
         val timingData = readTimingData()
         val newDataQueue = mutableListOf<MutableMap<String, Any>>(
-            mutableMapOf<String, Any>("선수명" to "나승엽", "percent" to 37.2f),
             mutableMapOf<String, Any>("선수명" to "정훈", "percent" to 20.6f),
             mutableMapOf<String, Any>("선수명" to "박승욱", "percent" to 67.4f)
         )
@@ -233,7 +253,14 @@ class BroadcastFragment : Fragment() {
                 }
             }
         }
-        handler.post(runnable)
+// 첫 번째 타이밍 데이터가 0이면 다음 타이밍 데이터부터 시작
+        if (timingData[0] == 0L) {
+            if (timingData.size > 1) {
+                handler.postDelayed(runnable, timingData[1])
+            }
+        } else {
+            handler.postDelayed(runnable, timingData[0])
+        }
     }
 
     private fun readTimingData(): List<Long> {
@@ -543,7 +570,10 @@ class BroadcastFragment : Fragment() {
             mediaPlayer.release()
         }
         handler.removeCallbacksAndMessages(null)
-
+        if (::textToSpeech.isInitialized) {
+            textToSpeech.stop()
+            textToSpeech.shutdown()
+        }
         // 프래그먼트를 떠날 때 FAB 숨기기
         val fabChat = requireActivity().findViewById<FloatingActionButton>(R.id.fab_chat)
         fabChat?.hide()
